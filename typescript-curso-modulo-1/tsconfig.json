@@ -4,6 +4,8 @@
         "rootDir": "app", // garante que a raiz do código-fonte é a pasta app;
         "target": "ES6",  //converte todo ts para js na versao do ECMAscript 6;
         "noEmitOnError": true, //nao vai gerar arquivo ts até arrumar erros;
+        "noImplicitAny": true,
+   
     }, 
     "include": [
         "app/**/*"//le de app
