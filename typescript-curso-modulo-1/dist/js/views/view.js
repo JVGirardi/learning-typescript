@@ -1,10 +1,22 @@
 export class View {
-    constructor(selector) {
-        this.element = document.querySelector(selector);
+    constructor(selector, escapar) {
+        this.escapar = false;
+        const element = document.querySelector(selector);
+        if (element) {
+            this.element = element;
+        }
+        else {
+            throw Error(`Seletor ${selector} nao existe no DOM`);
+        }
+        if (escapar) {
+            this.escapar = escapar;
+        }
     }
     update(model) {
-        //chama o template para gerar e atualizar o innerHTML
-        const template = this.template(model);
+        let template = this.template(model);
+        if (this.escapar === true) {
+            template = template.replace(/<script>[\s\S]*?<\/script>/, "");
+        }
         this.element.innerHTML = template;
     }
 }
