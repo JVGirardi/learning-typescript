@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "outDir": "dist/js", //depois de ler os arquivos ts guardo em dist/js;
-        "rootDir": "app", // garante que a raiz do código-fonte é a pasta app;
+        "outDir": "app/dist/js", //depois de ler os arquivos ts guardo em dist/js;
+        "rootDir": "app/src", // garante que a raiz do código-fonte é a pasta app;
         "target": "ES6",  //converte todo ts para js na versao do ECMAscript 6;
         "noEmitOnError": true, //nao vai gerar arquivo ts até arrumar erros;
         "noImplicitAny": true,
@@ -9,6 +9,6 @@
         "strictNullChecks": true //impede que variaveis sejam atribuidas como null ou undefinied   
     }, 
     "include": [
-        "app/**/*"//le de app
+        "app/src/**/*"//le de app
     ]
 }
