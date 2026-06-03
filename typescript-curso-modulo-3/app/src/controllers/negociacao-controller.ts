@@ -48,6 +48,36 @@ export class NegociacaoController {
         this.atualizaView();
     }
 
+    public importarDados(): void {
+        fetch('http://localhost:8080/dados')
+        .then(res => res.json())
+        .then((dados: any[]) => {
+            return dados.map(dadosDeHoje => {
+                return new Negociacao(
+                    new Date(),
+                    dadosDeHoje.vezes,
+                    dadosDeHoje.montante
+                )
+            })
+        })
+        .then(negociacoesDeHoje => {
+            for(let negociacao of negociacoesDeHoje) {
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes);
+        });
+
+        /*
+            Fiz uma requisicao fetch pro endereco 8080
+            Recebi os dados e converti para json
+            Qual tipo que vem do backend? Nao sei (tipo any)
+            Recebo o array do tipo any
+            Pego cada negociacao do tipo any e converto para Negociacao passando a data atual, numero de vezes e o montante
+            como eu retornei esse array do tipo negociacao no proximo then o ts entende que este é o tipo do array
+            para cada negociacao eu adiciono em minha lista de negociacoes (model)
+        */
+    }
+
     private ehDiaUtil(data: Date) {
         return data.getDay() > DiasDaSemana.DOMINGO 
             && data.getDay() < DiasDaSemana.SABADO;
