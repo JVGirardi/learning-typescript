@@ -56,11 +56,27 @@ export class NegociacaoController {
         this.negociacoesService
             .obterNegociacoesDoDia()
             .then(negociacoesDeHoje => {
+                return negociacoesDeHoje.filter(negociacaoDeHoje => {
+                    return !this.negociacoes
+                        .lista()
+                        .some(negociacao => negociacao
+                            .ehIgual(negociacaoDeHoje)
+                        );
+                });
+            })
+            .then(negociacoesDeHoje => {
                 for (let negociacao of negociacoesDeHoje) {
                     this.negociacoes.adiciona(negociacao);
                 }
                 this.negociacoesView.update(this.negociacoes);
             });
+
+        /*
+            Recebo as negociacoes do dia, pego os dados, tenho uma lista de negociacoes convertidas
+            filtro esta lista, para cada iteracao do filter retorno verdadeiro ou falso
+            se eu retorno true vai pra lista pergunto se a lista tem alguma negociacao que eh igual a
+            anterior e retorna true converto para false para nao entrar na lista.
+        */
 
 
         /*
